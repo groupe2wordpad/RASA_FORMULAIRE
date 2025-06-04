@@ -9,7 +9,7 @@ if not os.path.exists("data"):
     os.makedirs("data")
 
 # Configuration base de données SQLite
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/questions.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///questions.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialisation de la base de données
