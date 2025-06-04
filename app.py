@@ -8,8 +8,8 @@ app = Flask(__name__)
 if not os.path.exists("data"):
     os.makedirs("data")
 
-# Configuration base de données SQLite
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///questions.db'
+# Configuration de la base de données PostgreSQL
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace("postgres://", "postgresql://", 1)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialisation de la base de données
