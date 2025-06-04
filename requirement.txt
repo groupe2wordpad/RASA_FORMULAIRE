@@ -1,4 +1,0 @@
-Flask
-requests
-render_template
-Flask-SQLAlchemy
