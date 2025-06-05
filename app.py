@@ -18,8 +18,6 @@ db = SQLAlchemy(app)
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nom = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(120), nullable=False)
     question = db.Column(db.Text, nullable=False)
 
 with app.app_context():
@@ -28,11 +26,10 @@ with app.app_context():
 @app.route("/", methods=["GET", "POST"])
 def formulaire():
     if request.method == "POST":
-        nom = request.form.get("nom")
-        email = request.form.get("email")
+        
         contenu_question = request.form.get("question")
 
-        nouvelle_question = Question(nom=nom, email=email, question=contenu_question)
+        nouvelle_question = Question( question=contenu_question)
         db.session.add(nouvelle_question)
         db.session.commit()
 
