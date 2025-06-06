@@ -4,10 +4,9 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-# Récupération de l'URL de la base de données externe Render
+# Configuration base de données
 database_url = os.environ.get('DATABASE_URL')
 
-# Correction obligatoire pour SQLAlchemy : "postgres://" => "postgresql://"
 if database_url and database_url.startswith("postgres://"):
     database_url = database_url.replace("postgres://", "postgresql://", 1)
 
@@ -26,21 +25,15 @@ with app.app_context():
 @app.route("/", methods=["GET", "POST"])
 def formulaire():
     if request.method == "POST":
-        
         contenu_question = request.form.get("question")
-
-        nouvelle_question = Question( question=contenu_question)
-        db.session.add(nouvelle_question)
-        db.session.commit()
-
-        return render_template("thank_you.html")
-
+        if contenu_question:
+            nouvelle_question = Question(question=contenu_question)
+            db.session.add(nouvelle_question)
+            db.session.commit()
+            return render_template("thank_you.html")
     return render_template("form.html")
 
-@app.route("/questions", methods=["GET"])
-def afficher_questions():
-    questions = Question.query.order_by(Question.id.desc()).all()
-    return render_template("questions.html", questions=questions)
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
