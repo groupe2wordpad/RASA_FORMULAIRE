@@ -4,148 +4,186 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Réponse IA</title>
-  <style>
-    body {
-      font-family: 'Courier New', monospace;
-      background-color: #f8f5f0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+  <!-- ... TON CODE INCHANGÉ AVANT ... -->
+<style>
+  body {
+    font-family: 'Courier New', monospace;
+    background-color: #f8f5f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
 
+  #container {
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f5f0;
+    border: 1px solid #4b2e15;
+    margin-top: 1em;
+    width: 52%;
+    height: 92vh;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
     #container {
-      display: flex;
-      flex-direction: column;
-      background-color: #f8f5f0;
-      border: 1px solid #4b2e15;
-      margin-top: 1em;
-      width: 52%;
-      height: 92vh;
+      width: 80%;
+      height: 95vh;
     }
+  }
 
-    header {
-      background-color: #4b2e15;
-      color: #f8f5f0;
-      text-align: center;
-      font-weight: bold;
-      padding: 1rem;
-      font-size: 1.3rem;
-    }
-
-    .chat-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding: 1rem;
-      overflow-y: auto;
-      gap: 1rem;
-    }
-
-    .message {
-      max-width: 75%;
-      padding: 0.8rem 1rem;
-      border-radius: 10px;
-      margin: 0.5rem 0;
-      white-space: pre-wrap;
-    }
-
-    .bot-message {
-      background-color: #f8f5f0;
-      color: #4b2e15;
-      border: 1px solid #4b2e15;
-      box-shadow: 0 0 8px rgba(75,46,21,0.2);
-      font-weight: bold;
-      border-radius: 10px;
-      padding: 1rem;
-      align-self: flex-start;
-    }
-
-    .user-message {
-      background-color: #F77F00;
-      color: #f8f5f0;
-      border: 1px solid #cc6b00;
-      box-shadow: 0 0 6px rgba(247,127,0,0.5);
-      font-weight: bold;
-      border-radius: 10px;
-      padding: 1rem;
-      align-self: flex-start;
-      margin-top: 0.5rem;
-    }
-
-    .welcome-message {
-      background-color: #f8f5f0;
-      color: #4b2e15;
-      border: 1px solid #4b2e15;
-      border-radius: 10px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      font-style: italic;
-      box-shadow: 0 0 6px rgba(75,46,21,0.1);
-      max-width: 75%;
-      align-self: flex-start;
+  @media (max-width: 768px) {
+    #container {
+      width: 95%;
+      height: 100vh;
     }
 
     form {
-      display: flex;
-      padding: 1rem;
-      background-color: #fff;
-      border-top: 1px solid #f8f5f0;
-    }
-
-    textarea {
-      flex: 1;
-      resize: none;
-      padding: 0.8rem;
-      border: 1px solid #4b2e15;
-      border-radius: 8px;
-      color: #4b2e15;
-      font-size: 1rem;
-      font-family: 'Courier New', monospace;
-    }
-
-    button {
-      margin-left: 1rem;
-      padding: 0.8rem 1.2rem;
-      margin-top: 2px;
-      background-color: #F77F00;
-      border: none;
-      color: #f8f5f0;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #cc6b00;
-    }
-
-    /* Style du formulaire remarque, caché par défaut */
-    #form-remarque {
-      display: none;
       flex-direction: column;
-      padding: 1rem;
-      background-color: #fff;
-      border-top: 1px solid #f8f5f0;
     }
 
-    #form-remarque textarea {
+    form textarea {
+      width: 100%;
       margin-bottom: 0.5rem;
-      height: 80px;
     }
 
-    /* Message flash */
-    #flash-message {
-      text-align: center;
-      margin: 0.5rem;
-      padding: 0.5rem;
-      color: green;
-      font-weight: bold;
+    form button {
+      margin-left: 0;
+      width: 100%;
+      margin-top: 0.5rem;
     }
-  </style>
+
+    .message,
+    .bot-message,
+    .user-message,
+    .welcome-message {
+      max-width: 100%;
+    }
+  }
+
+  header {
+    background-color: #4b2e15;
+    color: #f8f5f0;
+    text-align: center;
+    font-weight: bold;
+    padding: 1rem;
+    font-size: 1.3rem;
+  }
+
+  .chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1rem;
+    overflow-y: auto;
+    gap: 1rem;
+  }
+
+  .message {
+    max-width: 75%;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    margin: 0.5rem 0;
+    white-space: pre-wrap;
+  }
+
+  .bot-message {
+    background-color: #f8f5f0;
+    color: #4b2e15;
+    border: 1px solid #4b2e15;
+    box-shadow: 0 0 8px rgba(75,46,21,0.2);
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 1rem;
+    align-self: flex-start;
+  }
+
+  .user-message {
+    background-color: #F77F00;
+    color: #f8f5f0;
+    border: 1px solid #cc6b00;
+    box-shadow: 0 0 6px rgba(247,127,0,0.5);
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 1rem;
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+
+  .welcome-message {
+    background-color: #f8f5f0;
+    color: #4b2e15;
+    border: 1px solid #4b2e15;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+    box-shadow: 0 0 6px rgba(75,46,21,0.1);
+    max-width: 75%;
+    align-self: flex-start;
+  }
+
+  form {
+    display: flex;
+    padding: 1rem;
+    background-color: #fff;
+    border-top: 1px solid #f8f5f0;
+  }
+
+  textarea {
+    flex: 1;
+    resize: none;
+    padding: 0.8rem;
+    border: 1px solid #4b2e15;
+    border-radius: 8px;
+    color: #4b2e15;
+    font-size: 1rem;
+    font-family: 'Courier New', monospace;
+  }
+
+  button {
+    margin-left: 1rem;
+    padding: 0.8rem 1.2rem;
+    margin-top: 2px;
+    background-color: #F77F00;
+    border: none;
+    color: #f8f5f0;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #cc6b00;
+  }
+
+  #form-remarque {
+    display: none;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: #fff;
+    border-top: 1px solid #f8f5f0;
+  }
+
+  #form-remarque textarea {
+    margin-bottom: 0.5rem;
+    height: 80px;
+  }
+
+  #flash-message {
+    text-align: center;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    color: green;
+    font-weight: bold;
+  }
+</style>
+<!-- ... TON CODE CONTINUE ... -->
+
 </head>
 <body>
   <div id="container">
